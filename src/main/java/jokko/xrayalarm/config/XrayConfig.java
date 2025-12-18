@@ -65,11 +65,58 @@ public class XrayConfig {
         }
     }
 
-    public static void saveDefault() throws IOException {
-        Files.createDirectories(CONFIG_PATH.getParent());
-        String defaultJson = Files.readString(XrayConfig.class.getResource("/default-xray-alarm.json").toURI());
-        Files.writeString(CONFIG_PATH, defaultJson);
+    public static void save() {
+        try {
+            Map<String, Object> root = new LinkedHashMap<>();
+            root.put("version", "1.0.0");
+            root.put("configId", "xrayalarm");
+
+            Map<String, Object> general = new LinkedHashMap<>();
+            general.put("notifyPermission", notifyPermission);
+            general.put("permissionLevel", opLevel);
+            general.put("opLevel", opLevel);
+            root.put("general", general);
+
+            Map<String, Object> alerts = new LinkedHashMap<>();
+            alerts.put("continued_alert_prefix", "<red>[Continued]</red> ");
+            root.put("alerts", alerts);
+
+            Map<String, Object> webhook = new LinkedHashMap<>();
+            webhook.put("enabled", useWebhook);
+            webhook.put("url", webhookUrl);
+            root.put("webhook", webhook);
+
+            List<Map<String, Object>> blocks = new ArrayList<>();
+            for (OreConfig cfg : trackedBlocks.values()) {
+                Map<String, Object> b = new LinkedHashMap<>();
+                b.put("block_id", cfg.blockId());
+                b.put("alert_threshold", cfg.alertThreshold());
+                b.put("time_window_minutes", cfg.timeWindowMinutes());
+                b.put("subsequent_alert_threshold", cfg.subsequentAlertThreshold());
+                b.put("reset_after_minutes", cfg.resetAfterMinutes());
+                b.put("alert_message", cfg.alertMessage());
+                blocks.add(b);
+            }
+            root.put("tracked_blocks", blocks);
+
+            String json = GSON.toJson(root);
+            Files.writeString(CONFIG_PATH, json);
+
+            Xrayalarm.LOGGER.info("XRayAlarm config saved.");
+        } catch (Exception e) {
+            Xrayalarm.LOGGER.error("Fehler beim Speichern der XRayAlarm Config", e);
+        }
     }
+
+
+    public static void saveDefault() throws Exception {
+        Files.createDirectories(CONFIG_PATH.getParent());
+        try (var in = XrayConfig.class.getResourceAsStream("/default-xray-alarm.json")) {
+            if (in == null) throw new RuntimeException("Default JSON nicht gefunden!");
+            Files.copy(in, CONFIG_PATH);
+        }
+    }
+
 
     public record OreConfig(
             String blockId,
