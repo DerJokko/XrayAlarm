@@ -4,7 +4,7 @@ import jokko.xrayalarm.Xrayalarm;
 import jokko.xrayalarm.config.XrayConfig;
 import jokko.xrayalarm.config.XrayConfig.OreConfig;
 import jokko.xrayalarm.detection.OreTracker.OreBreakEvent;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -16,7 +16,7 @@ public class WebhookClient {
 
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
-    public static void sendAlert(ServerPlayerEntity player, List<OreBreakEvent> events, OreConfig cfg) {
+    public static void sendAlert(ServerPlayer player, List<OreBreakEvent> events, OreConfig cfg) {
         String msg = cfg.alertMessage()
                 .replace("{player}", player.getName().getString())
                 .replace("{count}", String.valueOf(events.size()))
@@ -24,10 +24,16 @@ public class WebhookClient {
                 .replace("{time}", String.valueOf(cfg.timeWindowMinutes()));
 
         if (XrayConfig.useChat) {
-            for (ServerPlayerEntity p : player.getServer().getPlayerManager().getPlayerList()) {
-                if (p.hasPermissionLevel(XrayConfig.opLevel)) {
-                    p.sendMessage(net.minecraft.text.Text.of(msg), false);
+            // Get server reference and broadcast message
+            try {
+                net.minecraft.server.MinecraftServer srv = player.level().getServer();
+                if (srv != null) {
+                    for (ServerPlayer p : srv.getPlayerList().getPlayers()) {
+                        p.sendSystemMessage(net.minecraft.network.chat.Component.literal(msg));
+                    }
                 }
+            } catch (Exception e) {
+                // Silently fail if server is not available
             }
         }
 

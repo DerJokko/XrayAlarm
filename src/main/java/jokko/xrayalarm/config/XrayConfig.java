@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import jokko.xrayalarm.Xrayalarm;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +24,7 @@ public class XrayConfig {
 
     public static final Map<String, OreConfig> trackedBlocks = new HashMap<>();
 
+    @SuppressWarnings("unchecked")
     public static void load() {
         try {
             if (Files.notExists(CONFIG_PATH)) {
@@ -36,9 +36,18 @@ public class XrayConfig {
             Type mapType = new TypeToken<Map<String, Object>>(){}.getType();
             Map<String, Object> data = GSON.fromJson(content, mapType);
 
-            Map<String, Object> webhookData = (Map<String, Object>) data.get("webhook");
-            webhookUrl = (String) webhookData.getOrDefault("url", "");
-            useWebhook = (Boolean) webhookData.getOrDefault("enabled", true);
+            Object webhookObj = data.get("webhook");
+            Map<String, Object> webhook = null;
+
+            if (webhookObj instanceof Map) {
+                webhook = (Map<String, Object>) webhookObj;
+            } else {
+                // Handle error - webhook config is missing or invalid
+                throw new IllegalStateException("Webhook configuration is not a map");
+            }
+
+            webhookUrl = (String) webhook.getOrDefault("url", "");
+            useWebhook = (Boolean) webhook.getOrDefault("enabled", true);
 
             Map<String, Object> general = (Map<String, Object>) data.get("general");
             notifyPermission = (String) general.getOrDefault("notifyPermission", "antixray.notify");

@@ -2,24 +2,24 @@ package jokko.xrayalarm.detection;
 
 import jokko.xrayalarm.config.XrayConfig;
 import jokko.xrayalarm.webhook.WebhookClient;
-import net.minecraft.block.Block;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.server.level.ServerPlayer;
 
-import java.time.Instant;
 import java.util.*;
 
 public class OreTracker {
 
     private static final Map<UUID, Map<String, List<OreBreakEvent>>> playerHistory = new HashMap<>();
 
-    public static void handleOreBreak(ServerPlayerEntity player, Block block) {
+    public static void handleOreBreak(ServerPlayer player, Block block) {
         if (!XrayConfig.enabled) return;
 
-        String blockId = block.getRegistryName().toString();
+        @SuppressWarnings("deprecation")
+        String blockId = block.builtInRegistryHolder().key().toString();
         XrayConfig.OreConfig cfg = XrayConfig.trackedBlocks.get(blockId);
         if (cfg == null) return;
 
-        UUID uuid = player.getUuid();
+        UUID uuid = player.getUUID();
         playerHistory.putIfAbsent(uuid, new HashMap<>());
         Map<String, List<OreBreakEvent>> blocks = playerHistory.get(uuid);
         blocks.putIfAbsent(blockId, new ArrayList<>());
@@ -38,5 +38,5 @@ public class OreTracker {
         }
     }
 
-    public record OreBreakEvent(long timestamp, ServerPlayerEntity player, String blockId) {}
+    public record OreBreakEvent(long timestamp, ServerPlayer player, String blockId) {}
 }
