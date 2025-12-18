@@ -6,43 +6,194 @@
     "permissionLevel": 2,
     "opLevel": 2
   },
-  "alerts": {
-    "sound": {
-      "sound_id": "minecraft:block.note_block.pling",
-      "base_volume": 1.0,
-      "base_pitch": 1.0,
-      "volume_multiplier_per_alert": 1.0,
-      "pitch_multiplier_per_alert": 1.0
-    },
-    "continued_alert_prefix": "<red>[Continued]</red> "
-  },
   "webhook": {
     "enabled": true,
     "url": ""
   },
   "tracked_blocks": [
-    {"block_id":"minecraft:diamond_ore","alert_threshold":10,"time_window_minutes":30,"subsequent_alert_threshold":5,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_diamond_ore","alert_threshold":10,"time_window_minutes":30,"subsequent_alert_threshold":5,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:ancient_debris","alert_threshold":5,"time_window_minutes":20,"subsequent_alert_threshold":3,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:emerald_ore","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_emerald_ore","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:nether_gold_ore","alert_threshold":15,"time_window_minutes":30,"subsequent_alert_threshold":8,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:gold_ore","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_gold_ore","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:lapis_ore","alert_threshold":12,"time_window_minutes":30,"subsequent_alert_threshold":6,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_lapis_ore","alert_threshold":12,"time_window_minutes":30,"subsequent_alert_threshold":6,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:redstone_ore","alert_threshold":25,"time_window_minutes":30,"subsequent_alert_threshold":15,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_redstone_ore","alert_threshold":25,"time_window_minutes":30,"subsequent_alert_threshold":15,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:iron_ore","alert_threshold":35,"time_window_minutes":30,"subsequent_alert_threshold":20,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_iron_ore","alert_threshold":35,"time_window_minutes":30,"subsequent_alert_threshold":20,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:copper_ore","alert_threshold":40,"time_window_minutes":30,"subsequent_alert_threshold":20,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_copper_ore","alert_threshold":40,"time_window_minutes":30,"subsequent_alert_threshold":20,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:coal_ore","alert_threshold":60,"time_window_minutes":30,"subsequent_alert_threshold":30,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:deepslate_coal_ore","alert_threshold":60,"time_window_minutes":30,"subsequent_alert_threshold":30,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:nether_quartz_ore","alert_threshold":40,"time_window_minutes":30,"subsequent_alert_threshold":20,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:spawner","alert_threshold":2,"time_window_minutes":60,"subsequent_alert_threshold":1,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has found {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:budding_amethyst","alert_threshold":4,"time_window_minutes":30,"subsequent_alert_threshold":2,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:suspicious_sand","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"},
-    {"block_id":"minecraft:suspicious_gravel","alert_threshold":8,"time_window_minutes":30,"subsequent_alert_threshold":4,"reset_after_minutes":10,"alert_message":"<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"}
+    {
+      "block_id": "minecraft:nether_gold_ore",
+      "alert_threshold": 15,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 8,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_copper_ore",
+      "alert_threshold": 40,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 20,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_lapis_ore",
+      "alert_threshold": 12,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 6,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_coal_ore",
+      "alert_threshold": 60,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 30,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:suspicious_gravel",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:coal_ore",
+      "alert_threshold": 60,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 30,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:diamond_ore",
+      "alert_threshold": 10,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 5,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_emerald_ore",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:lapis_ore",
+      "alert_threshold": 12,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 6,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:copper_ore",
+      "alert_threshold": 40,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 20,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:gold_ore",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:ancient_debris",
+      "alert_threshold": 5,
+      "time_window_minutes": 20,
+      "subsequent_alert_threshold": 3,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:redstone_ore",
+      "alert_threshold": 25,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 15,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:budding_amethyst",
+      "alert_threshold": 4,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 2,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_gold_ore",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_redstone_ore",
+      "alert_threshold": 25,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 15,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:nether_quartz_ore",
+      "alert_threshold": 40,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 20,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:spawner",
+      "alert_threshold": 2,
+      "time_window_minutes": 60,
+      "subsequent_alert_threshold": 1,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has found {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:iron_ore",
+      "alert_threshold": 35,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 20,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:emerald_ore",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_iron_ore",
+      "alert_threshold": 35,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 20,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:suspicious_sand",
+      "alert_threshold": 8,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 4,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    },
+    {
+      "block_id": "minecraft:deepslate_diamond_ore",
+      "alert_threshold": 10,
+      "time_window_minutes": 30,
+      "subsequent_alert_threshold": 5,
+      "reset_after_minutes": 10,
+      "alert_message": "<red>[AntiXray]</red> <white>{player} has mined {count} {block} in {time} at ({x}, {y}, {z})!</white>"
+    }
   ]
 }

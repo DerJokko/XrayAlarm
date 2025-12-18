@@ -43,19 +43,11 @@ public class XrayAlarmCommand {
                             })
                         )
                     )
-                    .then(Commands.literal("enable")
+                    .then(Commands.literal("toggle")
                         .executes(ctx -> {
-                            XrayConfig.enabled = true;
+                            XrayConfig.enabled = !XrayConfig.enabled;
                             XrayConfig.save();
-                            ctx.getSource().sendSuccess(() -> Component.literal("XRayAlarm enabled"), false);
-                            return 1;
-                        })
-                    )
-                    .then(Commands.literal("disable")
-                        .executes(ctx -> {
-                            XrayConfig.enabled = false;
-                            XrayConfig.save();
-                            ctx.getSource().sendSuccess(() -> Component.literal("XRayAlarm disabled"), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("XRayAlarm " + (XrayConfig.enabled ? "enabled" : "disabled")), false);
                             return 1;
                         })
                     )
