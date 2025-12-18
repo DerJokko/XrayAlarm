@@ -14,15 +14,17 @@ public class OreTracker {
     private static final Map<UUID, Map<String, List<OreBreakEvent>>> playerHistory = new HashMap<>();
 
     public static void handleOreBreak(ServerPlayer player, Block block) {
-        
-        if (!XrayConfig.enabled) return;
+
+        if (!XrayConfig.enabled)
+            return;
 
         String blockId = BuiltInRegistries.BLOCK.getKey(block).toString();
-        
+
         XrayConfig.OreConfig cfg = XrayConfig.trackedBlocks.get(blockId);
         if (cfg == null) {
             // Block is not configured to be tracked — ignore
-            Xrayalarm.LOGGER.debug("[XrayAlarm] Block {} is not tracked, skipping. You might need to restart the server?", blockId);
+            Xrayalarm.LOGGER.debug(
+                    "[XrayAlarm] Block {} is not tracked, skipping. You might need to restart the server?", blockId);
             return;
         }
 
@@ -40,15 +42,15 @@ public class OreTracker {
         events.removeIf(e -> e.timestamp() < cutoff);
 
         if (events.size() >= cfg.alertThreshold()) {
-            Xrayalarm.LOGGER.warn("[XrayAlarm] ALERT! {} exceeded threshold for {} with {} breaks!", 
-                player.getName().getString(), 
-                blockId, 
-                events.size()
-            );
+            Xrayalarm.LOGGER.warn("[XrayAlarm] ALERT! {} exceeded threshold for {} with {} breaks!",
+                    player.getName().getString(),
+                    blockId,
+                    events.size());
             WebhookClient.sendAlert(player, events, cfg);
             events.clear();
         }
     }
 
-    public record OreBreakEvent(long timestamp, ServerPlayer player, String blockId) {}
+    public record OreBreakEvent(long timestamp, ServerPlayer player, String blockId) {
+    }
 }

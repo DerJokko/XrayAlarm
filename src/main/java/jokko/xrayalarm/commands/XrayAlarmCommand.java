@@ -18,7 +18,7 @@ public class XrayAlarmCommand {
                             .executes(ctx -> {
                                 XrayConfig.webhookUrl = StringArgumentType.getString(ctx, "url");
                                 XrayConfig.save();
-                                ctx.getSource().sendSuccess(() -> Component.literal("Webhook saved!"), false);
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c§l[XrayAlarm] §rWebhook set to: §7" + XrayConfig.webhookUrl), false);
                                 return 1;
                             })
                         )
@@ -28,7 +28,7 @@ public class XrayAlarmCommand {
                             .executes(ctx -> {
                                 XrayConfig.useWebhook = BoolArgumentType.getBool(ctx, "enabled");
                                 XrayConfig.save();
-                                ctx.getSource().sendSuccess(() -> Component.literal("Changed using Webhooks to " + XrayConfig.useWebhook), false);
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c§l[XrayAlarm] §rChanged using Webhooks to " + (XrayConfig.useWebhook ? "§aTrue§r!" : "§cFalse§r!")), false);
                                 return 1;
                             })
                         )
@@ -38,7 +38,7 @@ public class XrayAlarmCommand {
                             .executes(ctx -> {
                                 XrayConfig.useChat = BoolArgumentType.getBool(ctx, "enabled");
                                 XrayConfig.save();
-                                ctx.getSource().sendSuccess(() -> Component.literal("Set chat notifications to " + XrayConfig.useChat), false);
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c§l[XrayAlarm] §rSet chat notifications to " + (XrayConfig.useChat ? "§aTrue§r!" : "§cFalse§r!")), false);
                                 return 1;
                             })
                         )
@@ -47,7 +47,7 @@ public class XrayAlarmCommand {
                         .executes(ctx -> {
                             XrayConfig.enabled = !XrayConfig.enabled;
                             XrayConfig.save();
-                            ctx.getSource().sendSuccess(() -> Component.literal("XRayAlarm " + (XrayConfig.enabled ? "enabled" : "disabled")), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§c§l[XrayAlarm] §rXRayAlarm " + (XrayConfig.enabled ? "§aenabled§r!" : "§cdisabled§r!")), false);
                             return 1;
                         })
                     )
