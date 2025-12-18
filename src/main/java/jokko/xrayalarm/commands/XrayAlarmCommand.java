@@ -13,14 +13,14 @@ public class XrayAlarmCommand {
 
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(CommandManager.literal("xrayalarm")
+            dispatcher.register(CommandManager.literal("XrayAlarm")
                     .requires(src -> src.hasPermissionLevel(XrayConfig.opLevel))
                     .then(CommandManager.literal("setWebhook")
                             .then(CommandManager.argument("url", StringArgumentType.string())
                                     .executes(ctx -> {
                                         XrayConfig.webhookUrl = StringArgumentType.getString(ctx, "url");
-                                        XrayConfig.save(); // <-- Änderungen speichern
-                                        ctx.getSource().sendFeedback(Text.of("Webhook gesetzt!"), false);
+                                        XrayConfig.save(); // <-- Save Changes
+                                        ctx.getSource().sendFeedback(Text.of("Webhook saved!"), false);
                                         return 1;
                                     })
                             )
@@ -29,8 +29,8 @@ public class XrayAlarmCommand {
                             .then(CommandManager.argument("enabled", BoolArgumentType.bool())
                                     .executes(ctx -> {
                                         XrayConfig.useWebhook = BoolArgumentType.getBool(ctx, "enabled");
-                                        XrayConfig.save(); // <-- Änderungen speichern
-                                        ctx.getSource().sendFeedback(Text.of("Webhook Nutzung auf " + XrayConfig.useWebhook + " gesetzt"), false);
+                                        XrayConfig.save(); // <-- Save Changes
+                                        ctx.getSource().sendFeedback(Text.of("Changed using Webhooks to " + XrayConfig.useWebhook), false);
                                         return 1;
                                     })
                             )
@@ -39,8 +39,8 @@ public class XrayAlarmCommand {
                             .then(CommandManager.argument("enabled", BoolArgumentType.bool())
                                     .executes(ctx -> {
                                         XrayConfig.useChat = BoolArgumentType.getBool(ctx, "enabled");
-                                        XrayConfig.save(); // <-- Änderungen speichern
-                                        ctx.getSource().sendFeedback(Text.of("Chat Notifications auf " + XrayConfig.useChat + " gesetzt"), false);
+                                        XrayConfig.save(); // <-- Save Changes
+                                        ctx.getSource().sendFeedback(Text.of("Set chat notifications to " + XrayConfig.useChat), false);
                                         return 1;
                                     })
                             )
@@ -48,16 +48,16 @@ public class XrayAlarmCommand {
                     .then(CommandManager.literal("enable")
                             .executes(ctx -> {
                                 XrayConfig.enabled = true;
-                                XrayConfig.save(); // <-- Änderungen speichern
-                                ctx.getSource().sendFeedback(Text.of("XRayAlarm aktiviert"), false);
+                                XrayConfig.save(); // <-- Save Changes
+                                ctx.getSource().sendFeedback(Text.of("XRayAlarm enabled"), false);
                                 return 1;
                             })
                     )
                     .then(CommandManager.literal("disable")
                             .executes(ctx -> {
                                 XrayConfig.enabled = false;
-                                XrayConfig.save(); // <-- Änderungen speichern
-                                ctx.getSource().sendFeedback(Text.of("XRayAlarm deaktiviert"), false);
+                                XrayConfig.save(); // <-- Save Changes
+                                ctx.getSource().sendFeedback(Text.of("XRayAlarm disabled"), false);
                                 return 1;
                             })
                     )
