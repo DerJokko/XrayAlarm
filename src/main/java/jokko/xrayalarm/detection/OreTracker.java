@@ -14,23 +14,13 @@ public class OreTracker {
     private static final Map<UUID, Map<String, List<OreBreakEvent>>> playerHistory = new HashMap<>();
 
     public static void handleOreBreak(ServerPlayer player, Block block) {
-        Xrayalarm.LOGGER.info("[OreTracker] Handling ore break for player {} and block {}",
-            player.getName().getString(),
-            block.toString()
-        );
         
-        if (!XrayConfig.enabled) {
-            Xrayalarm.LOGGER.info("[OreTracker] XRayAlarm is disabled, ignoring ore break");
-            return;
-        }
+        if (!XrayConfig.enabled) return;
 
         String blockId = BuiltInRegistries.BLOCK.getKey(block).toString();
         Xrayalarm.LOGGER.info("[OreTracker] Block ID resolved to: {}", blockId);
         
         XrayConfig.OreConfig cfg = XrayConfig.trackedBlocks.get(blockId);
-        if (cfg == null) {
-            Xrayalarm.LOGGER.info("[OreTracker] Block {} is not in tracked blocks list. Available: {}", blockId, XrayConfig.trackedBlocks.keySet());
-        }
 
         UUID uuid = player.getUUID();
         playerHistory.putIfAbsent(uuid, new HashMap<>());
@@ -44,15 +34,6 @@ public class OreTracker {
         // Alte Einträge rauswerfen
         long cutoff = now - cfg.timeWindowMinutes() * 60L * 1000L;
         events.removeIf(e -> e.timestamp() < cutoff);
-
-        int remaining = cfg.alertThreshold() - events.size();
-        Xrayalarm.LOGGER.info("[OreTracker] {} broke {} - Count: {}/{} ({} more to threshold)",
-            player.getName().getString(),
-            blockId,
-            events.size(),
-            cfg.alertThreshold(),
-            remaining > 0 ? remaining : 0
-        );
 
         if (events.size() >= cfg.alertThreshold()) {
             Xrayalarm.LOGGER.warn("[OreTracker] ALERT! {} exceeded threshold for {} with {} breaks!", 
