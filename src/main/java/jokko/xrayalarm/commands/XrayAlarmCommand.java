@@ -51,6 +51,20 @@ public class XrayAlarmCommand {
                             return 1;
                         })
                     )
+                    .then(Commands.literal("info")
+                        .executes(ctx -> {
+                            String webhookUrl = XrayConfig.webhookUrl.isEmpty() ? "Not set" : XrayConfig.webhookUrl;
+                            String info = "\n" +
+                                "§6========== XRayAlarm Settings ==========§r\n" +
+                                "§7Enabled: §r" + (XrayConfig.enabled ? "§aTrue" : "§cFalse") + "\n" +
+                                "§7Chat Notifications: §r" + (XrayConfig.useChat ? "§aTrue" : "§cFalse") + "\n" +
+                                "§7Webhook Enabled: §r" + (XrayConfig.useWebhook ? "§aTrue" : "§cFalse") + "\n" +
+                                "§7Webhook URL: §r" + webhookUrl + "\n" +
+                                "§6=========================================§r";
+                            ctx.getSource().sendSuccess(() -> Component.literal(info), false);
+                            return 1;
+                        })
+                    )
             );
         });
     }
