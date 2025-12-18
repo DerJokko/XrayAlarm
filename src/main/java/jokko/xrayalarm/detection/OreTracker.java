@@ -18,9 +18,13 @@ public class OreTracker {
         if (!XrayConfig.enabled) return;
 
         String blockId = BuiltInRegistries.BLOCK.getKey(block).toString();
-        Xrayalarm.LOGGER.info("[OreTracker] Block ID resolved to: {}", blockId);
         
         XrayConfig.OreConfig cfg = XrayConfig.trackedBlocks.get(blockId);
+        if (cfg == null) {
+            // Block is not configured to be tracked — ignore
+            Xrayalarm.LOGGER.debug("[XrayAlarm] Block {} is not tracked, skipping. You might need to restart the server?", blockId);
+            return;
+        }
 
         UUID uuid = player.getUUID();
         playerHistory.putIfAbsent(uuid, new HashMap<>());
@@ -36,7 +40,7 @@ public class OreTracker {
         events.removeIf(e -> e.timestamp() < cutoff);
 
         if (events.size() >= cfg.alertThreshold()) {
-            Xrayalarm.LOGGER.warn("[OreTracker] ALERT! {} exceeded threshold for {} with {} breaks!", 
+            Xrayalarm.LOGGER.warn("[XrayAlarm] ALERT! {} exceeded threshold for {} with {} breaks!", 
                 player.getName().getString(), 
                 blockId, 
                 events.size()

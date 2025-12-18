@@ -1,7 +1,8 @@
 package jokko.xrayalarm.detection;
 
+import jokko.xrayalarm.config.XrayConfig;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import jokko.xrayalarm.Xrayalarm;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class OreBreakListener {
 
@@ -10,18 +11,9 @@ public class OreBreakListener {
             if (world.isClientSide()) return;
             net.minecraft.world.level.block.Block block = state.getBlock();
 
-            // Check if it's an ore block by name
-            String blockName = block.toString().toLowerCase();
-            if (blockName.contains("ore")) {
-                String timestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
-                Xrayalarm.LOGGER.info("[{}] {} broke {} at ({}, {}, {})", 
-                    timestamp, 
-                    player.getName().getString(), 
-                    blockName, 
-                    pos.getX(), 
-                    pos.getY(), 
-                    pos.getZ()
-                );
+            // Only call the tracker for blocks that are configured in tracked_blocks
+            String blockId = BuiltInRegistries.BLOCK.getKey(block).toString();
+            if (XrayConfig.trackedBlocks.containsKey(blockId)) {
                 OreTracker.handleOreBreak((net.minecraft.server.level.ServerPlayer) player, block);
             }
         });

@@ -3,13 +3,13 @@
 	"id": "x-ray-alarm",
 	"version": "${version}",
 	"name": "x-ray-alarm",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A Minecraft Fabric mod designed to alert on suspicious mining behavior, helping server admins detect potential x-ray cheaters.",
 	"authors": [
-		"Me!"
+		"DerJokko"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": "https://github.com/DerJokko/XrayAlarm"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/x-ray-alarm/icon.png",

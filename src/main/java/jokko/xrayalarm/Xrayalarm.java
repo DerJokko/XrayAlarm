@@ -17,6 +17,6 @@ public class Xrayalarm implements ModInitializer {
 		XrayConfig.load();
 		OreBreakListener.register();
 		XrayAlarmCommand.register();
-		LOGGER.info("XRayAlarm initialized");
+		LOGGER.info("XrayAlarm initialized");
 	}
 }
