@@ -16,9 +16,11 @@ public class XrayConfig {
     private static final Path CONFIG_PATH = Path.of("config/xray-alarm.json");
 
     public static boolean enabled = true;
-    public static boolean useWebhook = true;
+    public static boolean useWebhook = false;
     public static boolean useChat = true;
+    public static boolean usePingRole = false;
     public static String webhookUrl = "";
+    public static String pingRole = "";
     public static String notifyPermission = "antixray.notify";
     public static int opLevel = 2;
 
@@ -48,6 +50,8 @@ public class XrayConfig {
 
             webhookUrl = (String) webhook.getOrDefault("url", "");
             useWebhook = (Boolean) webhook.getOrDefault("enabled", true);
+            usePingRole = (Boolean) webhook.getOrDefault("usePingRole", false);
+            pingRole = (String) webhook.getOrDefault("pingRole", "");
 
             Map<String, Object> general = (Map<String, Object>) data.get("general");
             notifyPermission = (String) general.getOrDefault("notifyPermission", "antixray.notify");
@@ -93,6 +97,8 @@ public class XrayConfig {
             Map<String, Object> webhook = new LinkedHashMap<>();
             webhook.put("enabled", useWebhook);
             webhook.put("url", webhookUrl);
+            webhook.put("usePingRole", usePingRole);
+            webhook.put("pingRole", pingRole);
             root.put("webhook", webhook);
 
             List<Map<String, Object>> blocks = new ArrayList<>();

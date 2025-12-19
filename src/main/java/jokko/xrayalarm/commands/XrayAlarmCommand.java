@@ -13,7 +13,7 @@ public class XrayAlarmCommand {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(
                 Commands.literal("xrayAlarm")
-                    .then(Commands.literal("setwebhook")
+                    .then(Commands.literal("setWebhook")
                         .then(Commands.argument("url", StringArgumentType.greedyString())
                             .executes(ctx -> {
                                 XrayConfig.webhookUrl = StringArgumentType.getString(ctx, "url");
@@ -23,7 +23,7 @@ public class XrayAlarmCommand {
                             })
                         )
                     )
-                    .then(Commands.literal("usewebhook")
+                    .then(Commands.literal("useWebhook")
                         .then(Commands.argument("enabled", BoolArgumentType.bool())
                             .executes(ctx -> {
                                 XrayConfig.useWebhook = BoolArgumentType.getBool(ctx, "enabled");
@@ -33,12 +33,32 @@ public class XrayAlarmCommand {
                             })
                         )
                     )
-                    .then(Commands.literal("usechat")
+                    .then(Commands.literal("useChat")
                         .then(Commands.argument("enabled", BoolArgumentType.bool())
                             .executes(ctx -> {
                                 XrayConfig.useChat = BoolArgumentType.getBool(ctx, "enabled");
                                 XrayConfig.save();
                                 ctx.getSource().sendSuccess(() -> Component.literal("§c[XrayAlarm] §rSet chat notifications to " + (XrayConfig.useChat ? "§aTrue§r!" : "§cFalse§r!")), false);
+                                return 1;
+                            })
+                        )
+                    )
+                    .then(Commands.literal("setPingRole")
+                        .then(Commands.argument("id", StringArgumentType.word())
+                            .executes(ctx -> {
+                                XrayConfig.pingRole = StringArgumentType.getString(ctx, "id");
+                                XrayConfig.save();
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c[XrayAlarm] §rPing role set to: §7" + (XrayConfig.pingRole.isEmpty() ? "Not set" : XrayConfig.pingRole)), false);
+                                return 1;
+                            })
+                        )
+                    )
+                    .then(Commands.literal("usePingRole")
+                        .then(Commands.argument("enabled", BoolArgumentType.bool())
+                            .executes(ctx -> {
+                                XrayConfig.usePingRole = BoolArgumentType.getBool(ctx, "enabled");
+                                XrayConfig.save();
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c[XrayAlarm] §rChanged usePingRole to " + (XrayConfig.usePingRole ? "§aTrue§r!" : "§cFalse§r!")), false);
                                 return 1;
                             })
                         )
@@ -54,11 +74,14 @@ public class XrayAlarmCommand {
                     .then(Commands.literal("info")
                         .executes(ctx -> {
                             String webhookUrl = XrayConfig.webhookUrl.isEmpty() ? "Not set" : XrayConfig.webhookUrl;
+                            String pingRole = XrayConfig.pingRole.isEmpty() ? "Not set" : XrayConfig.pingRole;
                             String info = "\n" +
                                 "§6========== XRayAlarm Settings ==========§r\n" +
                                 "§7Enabled: §r" + (XrayConfig.enabled ? "§aTrue" : "§cFalse") + "\n" +
                                 "§7Chat Notifications: §r" + (XrayConfig.useChat ? "§aTrue" : "§cFalse") + "\n" +
                                 "§7Webhook Enabled: §r" + (XrayConfig.useWebhook ? "§aTrue" : "§cFalse") + "\n" +
+                                "§7Use Ping Role: §r" + (XrayConfig.usePingRole ? "§aTrue" : "§cFalse") + "\n" +
+                                "§7Ping Role: §r" + pingRole + "\n" +
                                 "§7Webhook URL: §r" + webhookUrl + "\n" +
                                 "§6=========================================§r";
                             ctx.getSource().sendSuccess(() -> Component.literal(info), false);

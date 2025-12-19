@@ -74,7 +74,13 @@ public class WebhookClient {
 
         // Send webhook (plain text)
         if (XrayConfig.useWebhook && !XrayConfig.webhookUrl.isEmpty()) {
-            String plain = stripColorTags(msg).replace("\"", "\\\"");
+            String pingPrefix = "";
+            if (XrayConfig.usePingRole && XrayConfig.pingRole != null && !XrayConfig.pingRole.isEmpty()) {
+                // Discord role mention format: <@&ROLE_ID>
+                pingPrefix = "<@&" + XrayConfig.pingRole + "> ";
+            }
+            String plain = pingPrefix + stripColorTags(msg);
+            plain = plain.replace("\"", "\\\"");
             String json = "{\"content\": \"" + plain + "\"}";
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(XrayConfig.webhookUrl))
