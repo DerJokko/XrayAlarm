@@ -17,7 +17,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 8,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_copper_ore",
@@ -25,7 +25,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 20,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_lapis_ore",
@@ -33,7 +33,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 6,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_coal_ore",
@@ -41,7 +41,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 30,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:suspicious_gravel",
@@ -49,7 +49,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <yellow>{count} {block}</yellow> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <yellow>{count} {block}</yellow> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:coal_ore",
@@ -57,7 +57,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 30,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:diamond_ore",
@@ -65,7 +65,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 5,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_emerald_ore",
@@ -73,7 +73,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <green>{count} {block}</green> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <green>{count} {block}</green> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:lapis_ore",
@@ -81,7 +81,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 6,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:copper_ore",
@@ -89,7 +89,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 20,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:gold_ore",
@@ -97,7 +97,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:ancient_debris",
@@ -105,7 +105,7 @@
       "time_window_minutes": 20,
       "subsequent_alert_threshold": 3,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:redstone_ore",
@@ -113,7 +113,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 15,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <red>{count} {block}</red> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <red>{count} {block}</red> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:budding_amethyst",
@@ -121,7 +121,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 2,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_gold_ore",
@@ -129,7 +129,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_redstone_ore",
@@ -137,7 +137,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 15,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <red>{count} {block}</red> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <red>{count} {block}</red> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:nether_quartz_ore",
@@ -145,7 +145,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 20,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gold>{count} {block}</gold> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:spawner",
@@ -153,7 +153,7 @@
       "time_window_minutes": 60,
       "subsequent_alert_threshold": 1,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has found <blue>{count} {block}</blue> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has found <blue>{count} {block}</blue> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:iron_ore",
@@ -161,7 +161,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 20,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:emerald_ore",
@@ -169,7 +169,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <green>{count} {block}</green> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <green>{count} {block}</green> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_iron_ore",
@@ -177,7 +177,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 20,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <gray>{count} {block}</gray> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:suspicious_sand",
@@ -185,7 +185,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 4,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <yellow>{count} {block}</yellow> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <yellow>{count} {block}</yellow> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     },
     {
       "block_id": "minecraft:deepslate_diamond_ore",
@@ -193,7 +193,7 @@
       "time_window_minutes": 30,
       "subsequent_alert_threshold": 5,
       "reset_after_minutes": 10,
-      "alert_message": "<red>[AntiXray]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
+      "alert_message": "<red>[XrayAlarm]</red> <white>{player}</white> has mined <aqua>{count} {block}</aqua> in <yellow>{time}</yellow> minutes at <gray>({x}, {y}, {z})</gray>!"
     }
   ]
 }

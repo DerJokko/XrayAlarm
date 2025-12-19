@@ -41,6 +41,21 @@ public class WebhookClient {
                 .replace("{block}", cfg.blockId())
                 .replace("{time}", String.valueOf(cfg.timeWindowMinutes()));
 
+        int x, y, z;
+        if (events != null && !events.isEmpty()) {
+            OreBreakEvent last = events.get(events.size() - 1);
+            x = last.x();
+            y = last.y();
+            z = last.z();
+        } else {
+            x = player.blockPosition().getX();
+            y = player.blockPosition().getY();
+            z = player.blockPosition().getZ();
+        }
+        msg = msg.replace("{x}", String.valueOf(x))
+                 .replace("{y}", String.valueOf(y))
+                 .replace("{z}", String.valueOf(z));
+
         if (XrayConfig.useChat) {
             // Get server reference and broadcast message
             try {

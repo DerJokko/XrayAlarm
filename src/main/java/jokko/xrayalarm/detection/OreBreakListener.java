@@ -14,7 +14,7 @@ public class OreBreakListener {
             // Only call the tracker for blocks that are configured in tracked_blocks
             String blockId = BuiltInRegistries.BLOCK.getKey(block).toString();
             if (XrayConfig.trackedBlocks.containsKey(blockId)) {
-                OreTracker.handleOreBreak((net.minecraft.server.level.ServerPlayer) player, block);
+                OreTracker.handleOreBreak((net.minecraft.server.level.ServerPlayer) player, block, pos);
             }
         });
     }

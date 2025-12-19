@@ -6,6 +6,7 @@ import jokko.xrayalarm.webhook.WebhookClient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.BlockPos;
 
 import java.util.*;
 
@@ -13,7 +14,7 @@ public class OreTracker {
 
     private static final Map<UUID, Map<String, List<OreBreakEvent>>> playerHistory = new HashMap<>();
 
-    public static void handleOreBreak(ServerPlayer player, Block block) {
+    public static void handleOreBreak(ServerPlayer player, Block block, BlockPos pos) {
 
         if (!XrayConfig.enabled)
             return;
@@ -35,7 +36,7 @@ public class OreTracker {
         List<OreBreakEvent> events = blocks.get(blockId);
 
         long now = System.currentTimeMillis();
-        events.add(new OreBreakEvent(now, player, blockId));
+        events.add(new OreBreakEvent(now, player, blockId, pos.getX(), pos.getY(), pos.getZ()));
 
         // Alte Einträge rauswerfen
         long cutoff = now - cfg.timeWindowMinutes() * 60L * 1000L;
@@ -51,6 +52,6 @@ public class OreTracker {
         }
     }
 
-    public record OreBreakEvent(long timestamp, ServerPlayer player, String blockId) {
+    public record OreBreakEvent(long timestamp, ServerPlayer player, String blockId, int x, int y, int z) {
     }
 }
