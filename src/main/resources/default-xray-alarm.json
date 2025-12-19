@@ -1,6 +1,8 @@
 {
   "version": "1.0.0",
   "configId": "xrayalarm",
+  "enabled": true,
+  "useChat": true,
   "general": {
     "notifyPermission": "antixray.notify",
     "permissionLevel": 2,

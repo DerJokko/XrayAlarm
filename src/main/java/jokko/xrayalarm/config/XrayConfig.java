@@ -31,43 +31,98 @@ public class XrayConfig {
         try {
             if (Files.notExists(CONFIG_PATH)) {
                 saveDefault();
-                return;
+                // continue to load the newly created default file
             }
 
             String content = Files.readString(CONFIG_PATH);
             Type mapType = new TypeToken<Map<String, Object>>(){}.getType();
             Map<String, Object> data = GSON.fromJson(content, mapType);
 
-            Object webhookObj = data.get("webhook");
-            Map<String, Object> webhook = null;
+            // load enabled and useChat (robustly handle boolean/number/string)
+            Object enabledObj = data.get("enabled");
+            if (enabledObj instanceof Boolean) {
+                enabled = (Boolean) enabledObj;
+            } else if (enabledObj instanceof Number) {
+                enabled = ((Number) enabledObj).intValue() != 0;
+            } else if (enabledObj instanceof String) {
+                enabled = Boolean.parseBoolean((String) enabledObj);
+            }
 
+            Object useChatObj = data.get("useChat");
+            if (useChatObj instanceof Boolean) {
+                useChat = (Boolean) useChatObj;
+            } else if (useChatObj instanceof Number) {
+                useChat = ((Number) useChatObj).intValue() != 0;
+            } else if (useChatObj instanceof String) {
+                useChat = Boolean.parseBoolean((String) useChatObj);
+            }
+
+            Object webhookObj = data.get("webhook");
+            Map<String, Object> webhook;
             if (webhookObj instanceof Map) {
                 webhook = (Map<String, Object>) webhookObj;
             } else {
-                // Handle error - webhook config is missing or invalid
-                throw new IllegalStateException("Webhook configuration is not a map");
+                // missing or invalid webhook config -> use defaults
+                webhook = new HashMap<>();
             }
 
             webhookUrl = (String) webhook.getOrDefault("url", "");
-            useWebhook = (Boolean) webhook.getOrDefault("enabled", true);
-            usePingRole = (Boolean) webhook.getOrDefault("usePingRole", false);
+            // parse booleans robustly
+            Object useWebhookObj = webhook.get("enabled");
+            if (useWebhookObj instanceof Boolean) {
+                useWebhook = (Boolean) useWebhookObj;
+            } else if (useWebhookObj instanceof Number) {
+                useWebhook = ((Number) useWebhookObj).intValue() != 0;
+            } else if (useWebhookObj instanceof String) {
+                useWebhook = Boolean.parseBoolean((String) useWebhookObj);
+            } else {
+                useWebhook = false;
+            }
+
+            Object usePingRoleObj = webhook.get("usePingRole");
+            if (usePingRoleObj instanceof Boolean) {
+                usePingRole = (Boolean) usePingRoleObj;
+            } else if (usePingRoleObj instanceof Number) {
+                usePingRole = ((Number) usePingRoleObj).intValue() != 0;
+            } else if (usePingRoleObj instanceof String) {
+                usePingRole = Boolean.parseBoolean((String) usePingRoleObj);
+            } else {
+                usePingRole = false;
+            }
+
             pingRole = (String) webhook.getOrDefault("pingRole", "");
 
             Map<String, Object> general = (Map<String, Object>) data.get("general");
+            if (general == null) general = new HashMap<>();
             notifyPermission = (String) general.getOrDefault("notifyPermission", "antixray.notify");
-            opLevel = ((Double) general.getOrDefault("opLevel", 2.0)).intValue();
+            Object opLevelObj = general.getOrDefault("opLevel", 2);
+            if (opLevelObj instanceof Number) {
+                opLevel = ((Number) opLevelObj).intValue();
+            } else {
+                try {
+                    opLevel = Integer.parseInt(opLevelObj.toString());
+                } catch (Exception ex) {
+                    opLevel = 2;
+                }
+            }
 
             List<Map<String, Object>> blocks = (List<Map<String, Object>>) data.get("tracked_blocks");
+            if (blocks == null) blocks = Collections.emptyList();
             trackedBlocks.clear();
             for (Map<String, Object> b : blocks) {
                 String blockId = (String) b.get("block_id");
+                int alertThreshold = toInt(b.get("alert_threshold"), 0);
+                int timeWindow = toInt(b.get("time_window_minutes"), 0);
+                int subsequentAlert = toInt(b.get("subsequent_alert_threshold"), 0);
+                int resetAfter = toInt(b.get("reset_after_minutes"), 0);
+                String alertMessage = (String) b.getOrDefault("alert_message", "");
                 OreConfig cfg = new OreConfig(
                         blockId,
-                        ((Double) b.get("alert_threshold")).intValue(),
-                        ((Double) b.get("time_window_minutes")).intValue(),
-                        ((Double) b.get("subsequent_alert_threshold")).intValue(),
-                        ((Double) b.get("reset_after_minutes")).intValue(),
-                        (String) b.get("alert_message")
+                        alertThreshold,
+                        timeWindow,
+                        subsequentAlert,
+                        resetAfter,
+                        alertMessage
                 );
                 trackedBlocks.put(blockId, cfg);
             }
@@ -83,6 +138,8 @@ public class XrayConfig {
             Map<String, Object> root = new LinkedHashMap<>();
             root.put("version", "1.0.0");
             root.put("configId", "xrayalarm");
+            root.put("enabled", enabled);
+            root.put("useChat", useChat);
 
             Map<String, Object> general = new LinkedHashMap<>();
             general.put("notifyPermission", notifyPermission);
@@ -132,6 +189,14 @@ public class XrayConfig {
         }
     }
 
+
+    private static int toInt(Object obj, int def) {
+        if (obj instanceof Number) return ((Number) obj).intValue();
+        if (obj instanceof String) {
+            try { return Integer.parseInt((String) obj); } catch (Exception e) { return def; }
+        }
+        return def;
+    }
 
     public record OreConfig(
             String blockId,
