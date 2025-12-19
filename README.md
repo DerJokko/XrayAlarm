@@ -38,7 +38,7 @@ Use `/xrayAlarm` with these subcommands:
 - Run `./gradlew build` to test compile and run in your dev environment.
 
 ## License
-CC0-1.0 — see `LICENSE` for details.
+GPL-3.0-or-later — see `LICENSE` for details.
 
 ---
 
