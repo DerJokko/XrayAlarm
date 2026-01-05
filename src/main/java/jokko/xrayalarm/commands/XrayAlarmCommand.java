@@ -63,6 +63,16 @@ public class XrayAlarmCommand {
                             })
                         )
                     )
+                    .then(Commands.literal("coordinatesOnLeave")
+                        .then(Commands.argument("enabled", BoolArgumentType.bool())
+                            .executes(ctx -> {
+                                XrayConfig.coordinatesOnLeave = BoolArgumentType.getBool(ctx, "enabled");
+                                XrayConfig.save();
+                                ctx.getSource().sendSuccess(() -> Component.literal("§c[XrayAlarm] §rChanged coordinatesOnLeave to " + (XrayConfig.coordinatesOnLeave ? "§aTrue§r!" : "§cFalse§r!")), false);
+                                return 1;
+                            })
+                        )
+                    )
                     .then(Commands.literal("toggle")
                         .executes(ctx -> {
                             XrayConfig.enabled = !XrayConfig.enabled;
@@ -82,6 +92,7 @@ public class XrayAlarmCommand {
                                 "§7Webhook Enabled: §r" + (XrayConfig.useWebhook ? "§aTrue" : "§cFalse") + "\n" +
                                 "§7Use Ping Role: §r" + (XrayConfig.usePingRole ? "§aTrue" : "§cFalse") + "\n" +
                                 "§7Ping Role: §r" + pingRole + "\n" +
+                                "§7Coordinates On Leave: §r" + (XrayConfig.coordinatesOnLeave ? "§aTrue" : "§cFalse") + "\n" +
                                 "§7Webhook URL: §r" + webhookUrl + "\n" +
                                 "§6=========================================§r";
                             ctx.getSource().sendSuccess(() -> Component.literal(info), false);

@@ -18,7 +18,7 @@ public class XrayConfig {
     public static boolean enabled = true;
     public static boolean useWebhook = false;
     public static boolean useChat = true;
-    public static boolean usePingRole = false;
+    public static boolean usePingRole = false;    public static boolean coordinatesOnLeave = false;    public static String logoutMessage = "<red>[XrayAlarm]</red> <white>{player}</white> logged out in <yellow>{dimension}</yellow> at <gray>({x}, {y}, {z})</gray>!";
     public static String webhookUrl = "";
     public static String pingRole = "";
     public static String notifyPermission = "antixray.notify";
@@ -106,6 +106,23 @@ public class XrayConfig {
                 }
             }
 
+            Object coordsObj = general.get("coordinatesOnLeave");
+            if (coordsObj instanceof Boolean) {
+                coordinatesOnLeave = (Boolean) coordsObj;
+            } else if (coordsObj instanceof Number) {
+                coordinatesOnLeave = ((Number) coordsObj).intValue() != 0;
+            } else if (coordsObj instanceof String) {
+                coordinatesOnLeave = Boolean.parseBoolean((String) coordsObj);
+            } else {
+                coordinatesOnLeave = false;
+            }
+
+            Object logoutObj = general.get("logoutMessage");
+            if (logoutObj instanceof String) {
+                logoutMessage = (String) logoutObj;
+            } // else keep default
+
+
             List<Map<String, Object>> blocks = (List<Map<String, Object>>) data.get("tracked_blocks");
             if (blocks == null) blocks = Collections.emptyList();
             trackedBlocks.clear();
@@ -145,6 +162,8 @@ public class XrayConfig {
             general.put("notifyPermission", notifyPermission);
             general.put("permissionLevel", opLevel);
             general.put("opLevel", opLevel);
+            general.put("coordinatesOnLeave", coordinatesOnLeave);
+            general.put("logoutMessage", logoutMessage);
             root.put("general", general);
 
             Map<String, Object> alerts = new LinkedHashMap<>();

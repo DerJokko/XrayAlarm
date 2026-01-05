@@ -6,6 +6,8 @@ A small Fabric mod that helps server admins detect suspicious mining behavior an
 ## Features
 - Detects rapid/suspicious ore mining per tracked block
 - Sends alerts to chat and/or Discord webhooks
+- Optionally send player coordinates on logout (configurable)
+- Customizable logout message with placeholders: `{player}`, `{x}`, `{y}`, `{z}`, `{world}`, `{dimension}`
 - Per-mod config with sensible defaults and editable tracked blocks
 - Runtime commands to configure behavior
 
@@ -20,7 +22,10 @@ A small Fabric mod that helps server admins detect suspicious mining behavior an
 Key config fields:
 - `enabled` (boolean): master enable/disable
 - `useChat` (boolean): send chat notifications
-- `webhook.enabled` / `webhook.url`: enable and target for webhooks
+- `webhook.enabled` / `webhook.url` / `webhook.avatarUrl`: enable and target for webhooks, optional avatar URL
+- `webhook.usePingRole` / `webhook.pingRole`: optional Discord role pinging for alerts
+- `general.coordinatesOnLeave` (boolean): send coordinates on player logout
+- `general.logoutMessage` (string): template for logout messages; supports `{player}`, `{x}`, `{y}`, `{z}`, `{world}`, `{dimension}`
 - `tracked_blocks`: list of blocks with thresholds and alert messages
 
 ## Commands
@@ -30,6 +35,7 @@ Use `/xrayAlarm` with these subcommands:
 - `useChat <true|false>` — toggle chat notifications
 - `setPingRole <id>` — set Discord ping role id
 - `usePingRole <true|false>` — enable role pings
+- `coordinatesOnLeave <true|false>` — toggle sending coordinates when a player disconnects
 - `toggle` — enable/disable the mod
 - `info` — show current config summary
 

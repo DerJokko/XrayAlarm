@@ -2,6 +2,7 @@ package jokko.xrayalarm;
 
 import jokko.xrayalarm.config.XrayConfig;
 import jokko.xrayalarm.detection.OreBreakListener;
+import jokko.xrayalarm.detection.PlayerLogoutListener;
 import jokko.xrayalarm.commands.XrayAlarmCommand;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ public class Xrayalarm implements ModInitializer {
 	public void onInitialize() {
 		XrayConfig.load();
 		OreBreakListener.register();
+		PlayerLogoutListener.register();
 		XrayAlarmCommand.register();
 		LOGGER.info("XrayAlarm initialized");
 	}

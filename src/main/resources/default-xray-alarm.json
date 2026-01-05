@@ -6,7 +6,9 @@
   "general": {
     "notifyPermission": "antixray.notify",
     "permissionLevel": 2,
-    "opLevel": 2
+    "opLevel": 2,
+    "coordinatesOnLeave": false,
+    "logoutMessage": "<red>[XrayAlarm]</red> <white>{player}</white> logged out in <yellow>{dimension}</yellow> at <gray>({x}, {y}, {z})</gray>!"
   },
   "webhook": {
     "enabled": false,
