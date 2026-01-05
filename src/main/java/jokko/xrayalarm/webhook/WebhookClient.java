@@ -74,28 +74,74 @@ public class WebhookClient {
 
         // Send webhook (plain text)
         if (XrayConfig.useWebhook && !XrayConfig.webhookUrl.isEmpty()) {
-            String pingPrefix = "";
-            if (XrayConfig.usePingRole && XrayConfig.pingRole != null && !XrayConfig.pingRole.isEmpty()) {
-                // Discord role mention format: <@&ROLE_ID>
-                pingPrefix = "<@&" + XrayConfig.pingRole + "> ";
-            }
-            String playerName = player.getName().getString();
-            String plain = stripColorTags(msg);
-            // Bold the player name for Discord
-            if (playerName != null && !playerName.isEmpty()) {
-                plain = plain.replace(playerName, "**" + playerName + "**");
-            }
-            plain = pingPrefix + plain;
-            plain = plain.replace("\"", "\\\"");
-            String json = "{\"content\": \"" + plain + "\"}";
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(XrayConfig.webhookUrl))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
-                    .build();
+            try {
+                String pingPrefix = "";
+                if (XrayConfig.usePingRole && XrayConfig.pingRole != null && !XrayConfig.pingRole.isEmpty()) {
+                    // Discord role mention format: <@&ROLE_ID>
+                    pingPrefix = "<@&" + XrayConfig.pingRole + "> ";
+                }
+                String playerName = player.getName().getString();
+                String plain = stripColorTags(msg);
+                // Bold the player name for Discord
+                if (playerName != null && !playerName.isEmpty()) {
+                    plain = plain.replace(playerName, "**" + playerName + "**");
+                }
+                plain = pingPrefix + plain;
+                plain = plain.replace("\"", "\\\"");
+                String json = "{\"content\": \"" + plain + "\"}";
 
-            CLIENT.sendAsync(request, HttpResponse.BodyHandlers.discarding())
-                    .exceptionally(e -> { Xrayalarm.LOGGER.error("Webhook Fehler", e); return null; });
+                Xrayalarm.LOGGER.info("[XrayAlarm] Preparing webhook alert. url='{}' usePingRole={} pingRole='{}'", XrayConfig.webhookUrl, XrayConfig.usePingRole, XrayConfig.pingRole);
+                Xrayalarm.LOGGER.debug("[XrayAlarm] Alert JSON: {}", json);
+
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(XrayConfig.webhookUrl))
+                        .header("Content-Type", "application/json")
+                        .POST(HttpRequest.BodyPublishers.ofString(json))
+                        .build();
+
+                CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                        .thenAccept(response -> {
+                            int status = response.statusCode();
+                            if (status >= 200 && status < 300) {
+                                Xrayalarm.LOGGER.info("[XrayAlarm] Webhook alert sent (status {})", status);
+                            } else {
+                                Xrayalarm.LOGGER.warn("[XrayAlarm] Webhook alert returned status {}. Body: {}", status, response.body());
+                            }
+                        })
+                        .exceptionally(e -> {
+                            Xrayalarm.LOGGER.error("[XrayAlarm] Webhook Fehler beim Senden (alert)", e);
+                            return null;
+                        });
+            } catch (Exception ex) {
+                Xrayalarm.LOGGER.error("[XrayAlarm] Exception while preparing/sending webhook alert: {}", ex.toString());
+            }
+        }
+    }
+
+    public static void logPlayerLeave(ServerPlayer player) {
+        try {
+            String msg = XrayConfig.logoutMessage;
+
+            String dimension = player.level().dimension().toString();
+            int slash = dimension.lastIndexOf('/');
+            if (slash >= 0) {
+                String part = dimension.substring(slash + 1).trim();
+                if (part.endsWith("]")) part = part.substring(0, part.length() - 1);
+                dimension = part;
+            }
+            String world = dimension;
+
+            msg = msg.replace("{player}", player.getName().getString())
+                     .replace("{x}", String.valueOf(player.blockPosition().getX()))
+                     .replace("{y}", String.valueOf(player.blockPosition().getY()))
+                     .replace("{z}", String.valueOf(player.blockPosition().getZ()))
+                     .replace("{world}", world)
+                     .replace("{dimension}", dimension);
+
+            String plain = stripColorTags(msg);
+            Xrayalarm.LOGGER.info("[XrayAlarm] " + plain);
+        } catch (Exception e) {
+            // ignore logging failures
         }
     }
 
@@ -147,8 +193,18 @@ public class WebhookClient {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            CLIENT.sendAsync(request, HttpResponse.BodyHandlers.discarding())
-                    .exceptionally(e -> { Xrayalarm.LOGGER.error("Webhook Fehler", e); return null; });
+            // Log and inspect response for logout webhook
+            Xrayalarm.LOGGER.debug("[XrayAlarm] Sending logout webhook to {}: {}", XrayConfig.webhookUrl, plain);
+            CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenAccept(response -> {
+                        int status = response.statusCode();
+                        if (status >= 200 && status < 300) {
+                            Xrayalarm.LOGGER.info("[XrayAlarm] Webhook logout sent (status {})", status);
+                        } else {
+                            Xrayalarm.LOGGER.warn("[XrayAlarm] Webhook logout returned status {}. Body: {}", status, response.body());
+                        }
+                    })
+                    .exceptionally(e -> { Xrayalarm.LOGGER.error("[XrayAlarm] Webhook Fehler beim Senden (logout)", e); return null; });
         }
     }
 

@@ -12,6 +12,9 @@ public class PlayerLogoutListener {
             try {
                 ServerPlayer player = handler.getPlayer();
                 if (player == null) return;
+                // Always log disconnects via XrayAlarm logger
+                WebhookClient.logPlayerLeave(player);
+                // Optionally send coordinates to chat/webhook
                 if (XrayConfig.coordinatesOnLeave) {
                     WebhookClient.sendCoordinatesOnLeave(player);
                 }
